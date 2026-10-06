@@ -5,7 +5,7 @@
    Photos: replace files in /images (keep the same names) or edit the list.
    ========================================================== */
 const CFG={
- herName:"Khushboo",nicknames:["Heer","Bby","Biwi","Apsara"],birthday:"10-14",from:"Krishna",
+ herName:"Heer",nicknames:["Charm","Bby","Biwi Ji","Apsara"],birthday:"10-14",from:"Krishna",
  photos:[
   "images/her-01.jpg",
   "images/her-02.jpg",
@@ -18,11 +18,38 @@ const CFG={
   "images/her-09.jpg",
   "images/her-10.jpg",
   "images/her-11.jpg",
-  "images/her-12.jpg"
+  "images/her-12.jpg",
+   "images/her-13.jpg",
+   "images/her-14.jpg",
+   "images/her-15.jpg",
+   "images/her-16.jpg",
+   "images/her-17.jpg",
+   "images/her-18.jpg",
+
+
  ],
- captions:["This smile >>> everything.","One of my favourite versions of you.","How are you even this pretty?","A memory I would happily relive.","My favourite person, captured in one frame.","You, being completely you.","This one gets me every time.","Little flower, big smile.","Soft, just like you.","The nerdy cutie edition.","Pure elegance.","Okay, this one is just unfair."],
- chapterTitles:["The Beginning","Little Wonder","The Quiet Growth","Your Spark","The Dreamer","Home in Her","A Laugh Like Yours","Strength in Silence","Finding Herself","What You Love","A Heart Like Yours","Softness That Stays","A Brave New Chapter","Small Wins, Big Strength","Becoming","Kindness in Motion","Almost Eighteen","Eighteen & Beautiful"],
- timeline:[["The Beginning", "where it all started", "I don't need a date to remember this. I just remember that something quietly changed, and I'm really glad it did."], ["When You Became Someone Special", "the moment it clicked", "Somewhere between the talks and the laughs, you stopped being just someone I knew. You became someone I look forward to."], ["The Conversations I Never Wanted To End", "one more minute, always", "Those talks where time disappeared. I'd say goodnight and still want five more minutes."], ["The Laughs", "my favourite sound", "The kind where you can't even explain what was funny. Those are the ones I keep."], ["The Random Calls", "for no reason at all", "No big topic, nothing important. Somehow those were the best ones."], ["The Little Things", "tiny but huge", "The small stuff, like how you say something, or a look you give. I notice all of it."], ["The Memories I Still Smile About", "still on replay", "I go back to them sometimes, and every time I end up smiling."]],
+captions: [
+    "This smile >>> everything.",
+    "One of my favourite versions of you.",
+    "How are you even this pretty?",
+    "A memory I would happily relive.",
+    "My favourite person, captured in one frame.",
+    "You, being completely you.",
+    "This one gets me every time.",
+    "Little flower, big smile.",
+    "Soft, just like you.",
+    "The nerdy cutie edition.",
+    "Pure elegance.",
+    "Okay, this one is just unfair.",
+
+    "If happiness had a face, it would be this.",
+    "I could look at this one forever.",
+    "My favourite view has always been you.",
+    "One frame, one beautiful memory.",
+    "Somehow, you make every picture feel special.",
+    "Just you being effortlessly beautiful."
+], chapterTitles:["The Beginning","Little Wonder","The Quiet Growth","Your Spark","The Dreamer","Home in Her","A Laugh Like Yours","Strength in Silence","Finding Herself","What You Love","A Heart Like Yours","Softness That Stays","A Brave New Chapter","Small Wins, Big Strength","Becoming","Kindness in Motion","Almost Eighteen","Eighteen & Beautiful"],
+ timeline:[["The Beginning", "where it all started", "I don't need a date to remember this. But still i remembered the date It's 10 May 2025 Time was 06:32 PM. I just remember that something quietly changed, and I'm really glad it did."], ["When You Became Someone Special", "the moment it clicked", "Somewhere between the talks and the laughs, you stopped being just someone I knew. You became someone I look forward to."], ["The Conversations I Never Wanted To End", "one more minute, always", "Those talks where time disappeared. I'd say goodnight and still want five more minutes."], ["The Laughs", "my favourite sound", "The kind where you can't even explain what was funny. Those are the ones I keep."], ["The Random Calls", "for no reason at all", "No big topic, nothing important. Somehow those were the best ones."], ["The Little Things", "tiny but huge", "The small stuff, like how you say something, or a look you give. I notice all of it."], ["The Memories I Still Smile About", "still on replay", "I go back to them sometimes, and every time I end up smiling."]],
  chNotes:["I wasn't there for this one, but I like imagining her. Small, curious, with no idea she'd grow into someone this loved.", "Growing up isn't easy. I hope the little you was always told she was enough.", "Even then, you were slowly turning into the person you are today.", "The way you speak, the way you think. It was always yours.", "Some dreams you kept close. I hope you give them room to grow.", "I hope you've always had people who felt like home.", "The laughs. Yours is one of my favourite things in the world.", "The hard days you got through quietly. I see how strong you are.", "Learning who you are takes time. Take all of it.", "The things you love say so much about your heart.", "Your strength isn't loud. It's steady, and it's real.", "Somehow you kept your softness. Please never lose it.", "Every new beginning looks a little scary. You're braver than you think.", "Even the little wins count. I'm proud of every one.", "I can't wait to watch who you become.", "Your kindness is the first thing people feel around you.", "So close now. Almost eighteen, and already so much of yourself.", "Here you are. 18. Beautiful, brave, and completely yourself. Happy birthday."],
  love:[["Your smile", "It changes the whole mood of a room. Mine too, every time."], ["The way you talk", "The way you say things, your tone, your little pauses. I could listen for hours."], ["Your little reactions", "The tiny expressions you don't even notice. They're my favourite."], ["Your kindness", "You care about people for real, not for show."], ["Your ambition", "You want more from life, and you're allowed to. I love that about you."], ["Your emotional side", "You feel deeply. That's not a weakness. It's one of your best parts."], ["Your silly side", "When you stop being serious and just become silly. That version of you is gold."], ["Your strength", "You get through things quietly, and you keep going."], ["How you make ordinary moments special", "A normal day just feels better with you in it."], ["The way you care about people", "You notice people. That's rarer than you think."], ["The person you are becoming", "I'm really excited to see who she turns out to be."]],
  memories:["Remember this day? I do. Every little part of it.", "I still smile when I think about this.", "One of those completely ordinary moments that became special.", "You probably don't even realize how much this moment meant to me.", "Your laugh that day. I'd replay it if I could.", "Nothing big happened. It was just you, and that was enough.", "I think about the little things more than the big ones.", "Some days are quiet and still end up being my favourites."],

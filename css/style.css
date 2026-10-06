@@ -61,8 +61,11 @@ nav b{font-family:Caveat;font-size:1.5rem}
 #cd{display:flex;gap:12px;justify-content:center;font-family:'Cormorant Garamond',serif;font-size:2rem;flex-wrap:wrap}
 #cd div{text-align:center;min-width:64px}
 #cd small{display:block;font:14px 'Nunito Sans'}
-#fin{position:fixed;inset:0;z-index:60;background:#000;color:#fde7ec;display:none;place-items:center;text-align:center;padding:30px;font-family:'Cormorant Garamond',serif;font-size:clamp(1.6rem,6vw,2.8rem)}
+#fin{position:fixed;inset:0;z-index:60;background:radial-gradient(circle at top,#1a0d1a 0%,#120913 40%,#09070c 100%);color:#fde7ec;display:none;place-items:center;text-align:center;padding:30px;font-family:'Cormorant Garamond',serif;font-size:clamp(1.6rem,6vw,2.8rem)}
 #fin.on{display:grid}
+#fin p{margin:0 0 18px;color:#fde7ec}
+.telegram-btn{display:inline-flex;align-items:center;justify-content:center;padding:16px 28px;border-radius:999px;text-decoration:none;font-family:'Nunito Sans',sans-serif;font-weight:800;letter-spacing:.08em;font-size:1rem;text-transform:uppercase;color:#fff;background:linear-gradient(135deg,#f8a9c0,#e87db0,#d95f9c);box-shadow:0 18px 40px rgba(217,95,156,.35);transition:transform .2s ease,box-shadow .2s ease;border:1px solid rgba(255,255,255,.12)}
+.telegram-btn:hover{transform:translateY(-2px) scale(1.01);box-shadow:0 22px 50px rgba(217,95,156,.5)}
 #sec{position:absolute;right:14px;margin-top:-30px;background:none;color:var(--rose);padding:0;font-size:1.2rem;opacity:.5}
 .h{position:fixed;pointer-events:none;z-index:70;animation:fl 1.4s ease-out forwards}
 @keyframes fl{to{transform:translateY(-90px);opacity:0}}

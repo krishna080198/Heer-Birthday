@@ -23,6 +23,7 @@ const createElement = (tag, html, className = "") => {
     return element;
 };
 
+let petalsStarted = false;
 
 /* ==========================================================
    2. BASIC SETUP
@@ -449,20 +450,31 @@ let currentSong = 0;
 const loadSong = () => {
 
     const song = CFG.songs[currentSong];
+    if (!song) {
+        return;
+    }
 
-    $("#sn").textContent = song.t;
-    $("#sa").textContent = song.a;
-    $("#sq").textContent = song.q;
+    const titleEl = $("#sn");
+    const artistEl = $("#sa");
+    const quoteEl = $("#sq");
+    const helpEl = $("#sh");
+    const vinylEl = $("#vn");
+    const playEl = $("#pp");
+
+    if (titleEl) titleEl.textContent = song.t;
+    if (artistEl) artistEl.textContent = song.a;
+    if (quoteEl) quoteEl.textContent = song.q;
 
     audio.src = song.src || "";
 
-    $("#sh").textContent = song.src
-        ? ""
-        : "Add your own legal audio file in CFG.songs[].src";
+    if (helpEl) {
+        helpEl.textContent = song.src
+            ? ""
+            : "Add your own legal audio file in CFG.songs[].src";
+    }
 
-    $("#vn").classList.remove("spin");
-
-    $("#pp").textContent = "▶";
+    if (vinylEl) vinylEl.classList.remove("spin");
+    if (playEl) playEl.textContent = "▶";
 };
 
 
@@ -491,93 +503,107 @@ const toggleMusic = () => {
 };
 
 
-$("#pp").onclick = toggleMusic;
+const playButton = $("#pp");
+if (playButton) {
+    playButton.onclick = toggleMusic;
+}
 
+const nextButton = $("#sn2");
+if (nextButton) {
+    nextButton.onclick = () => {
+        currentSong =
+            (currentSong + 1) % CFG.songs.length;
 
-$("#sn2").onclick = () => {
+        loadSong();
+    };
+}
 
-    currentSong =
-        (currentSong + 1) % CFG.songs.length;
+const prevButton = $("#sp");
+if (prevButton) {
+    prevButton.onclick = () => {
+        currentSong =
+            (currentSong - 1 + CFG.songs.length) %
+            CFG.songs.length;
 
-    loadSong();
-};
-
-
-$("#sp").onclick = () => {
-
-    currentSong =
-        (currentSong - 1 + CFG.songs.length) %
-        CFG.songs.length;
-
-    loadSong();
-};
+        loadSong();
+    };
+}
 
 
 audio.ontimeupdate = () => {
 
-    $("#pr").value = audio.duration
-        ? (audio.currentTime / audio.duration) * 100
-        : 0;
-};
-
-
-$("#pr").oninput = (event) => {
-
-    if (!audio.duration) {
-        return;
+    const progressEl = $("#pr");
+    if (progressEl) {
+        progressEl.value = audio.duration
+            ? (audio.currentTime / audio.duration) * 100
+            : 0;
     }
-
-    audio.currentTime =
-        audio.duration *
-        Number(event.target.value) / 100;
 };
 
 
-$("#vo").oninput = (event) => {
-    audio.volume = Number(event.target.value);
-};
+const progressEl = $("#pr");
+if (progressEl) {
+    progressEl.oninput = (event) => {
+
+        if (!audio.duration) {
+            return;
+        }
+
+        audio.currentTime =
+            audio.duration *
+            Number(event.target.value) / 100;
+    };
+}
+
+
+const volumeEl = $("#vo");
+if (volumeEl) {
+    volumeEl.oninput = (event) => {
+        audio.volume = Number(event.target.value);
+    };
+}
 
 
 loadSong();
 
+const musicMomentButton = $("#mgo");
+const musicMomentText = $("#mm");
 
-/* ==========================================================
-   19. MUSIC EXPERIENCE
-   ========================================================== */
+if (musicMomentButton && musicMomentText) {
+    musicMomentButton.onclick = async () => {
 
-$("#mgo").onclick = async () => {
+        musicMomentButton.remove();
 
-    $("#mgo").remove();
+        const messages = [
+            "Close your eyes for a second.",
+            "And just listen.",
+            ...CFG.songs.map((song) => song.q)
+        ];
 
-    const messages = [
-        "Close your eyes for a second.",
-        "And just listen.",
-        ...CFG.songs.map((song) => song.q)
-    ];
+        for (const message of messages) {
 
-    for (const message of messages) {
+            musicMomentText.style.opacity = "0";
 
-        $("#mm").style.opacity = "0";
+            await new Promise((resolve) => {
+                setTimeout(resolve, 900);
+            });
 
-        await new Promise((resolve) => {
-            setTimeout(resolve, 900);
-        });
+            musicMomentText.textContent = message;
 
-        $("#mm").textContent = message;
+            musicMomentText.style.transition =
+                "opacity 1.2s";
 
-        $("#mm").style.transition =
-            "opacity 1.2s";
+            musicMomentText.style.opacity = "1";
 
-        $("#mm").style.opacity = "1";
+            await new Promise((resolve) => {
+                setTimeout(resolve, 3000);
+            });
+        }
 
-        await new Promise((resolve) => {
-            setTimeout(resolve, 3000);
-        });
-    }
-
-    $("#mm").textContent =
-        "Happy birthday, Heer ♡";
-};
+        musicMomentText.textContent =
+            "Happy birthday, Heer ♡";
+    };
+}
 
 
 /* ==========================================================
@@ -674,36 +700,40 @@ setInterval(updateCountdown, 1000);
    21. FINAL SURPRISE
    ========================================================== */
 
-$("#last").onclick = async () => {
+const lastButton = $("#last");
+const finaleScreen = $("#fin");
+const finalText = $("#ft");
 
-    const finaleScreen = $("#fin");
+if (lastButton && finaleScreen && finalText) {
+    lastButton.onclick = async () => {
 
-    finaleScreen.classList.add("on");
+        finaleScreen.classList.add("on");
 
-    for (const message of CFG.finale) {
+        for (const message of CFG.finale) {
 
-        $("#ft").style.opacity = "0";
+            finalText.style.opacity = "0";
 
-        await new Promise((resolve) => {
-            setTimeout(resolve, 900);
-        });
+            await new Promise((resolve) => {
+                setTimeout(resolve, 900);
+            });
 
-        $("#ft").textContent = message;
+            finalText.textContent = message;
 
-        $("#ft").style.transition =
-            "opacity 1.2s";
+            finalText.style.transition =
+                "opacity 1.2s";
 
-        $("#ft").style.opacity = "1";
+            finalText.style.opacity = "1";
 
-        await new Promise((resolve) => {
-            setTimeout(resolve, 2600);
-        });
-    }
+            await new Promise((resolve) => {
+                setTimeout(resolve, 2600);
+            });
+        }
 
-    finaleScreen.onclick = () => {
-        finaleScreen.classList.remove("on");
+        finaleScreen.onclick = () => {
+            finaleScreen.classList.remove("on");
+        };
     };
-};
+}
 
 
 /* ==========================================================
@@ -772,8 +802,6 @@ addEventListener("dblclick", (event) => {
 /* ==========================================================
    25. FALLING PETALS
    ========================================================== */
-
-let petalsStarted = false;
 
 function startPetals() {
 
