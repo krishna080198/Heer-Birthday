@@ -1,4 +1,3 @@
-```javascript
 /* ==========================================================
    FOR MY HEER
    Birthday Website Behaviour
@@ -31,12 +30,11 @@ const createElement = (tag, html, className = "") => {
 
 const photos = CFG.photos;
 
-// Hero photo
 $("#hp").src = photos[3];
 
 
 /* ==========================================================
-   3. NAVIGATION MENU
+   3. NAVIGATION
    ========================================================== */
 
 const navigationItems = [
@@ -44,28 +42,24 @@ const navigationItems = [
     ["Our Story", "story"],
     ["18 Years", "years"],
     ["Memories", "memories"],
-    ["Things I Love About You", "love"],
+    ["Things I Love", "love"],
     ["For Your Bad Days", "bad"],
-    ["Open When...", "open-when"],
+    ["Open When", "open-when"],
     ["Birthday Letter", "letter"],
-    ["Our Music", "music"],
-    ["My Wishes For You", "wishes"],
-    ["The Future You", "future"],
+    ["Music", "music"],
+    ["My Wishes", "wishes"],
+    ["Future You", "future"],
     ["Final Surprise", "final"]
 ];
 
 $("#menu").innerHTML = navigationItems
-    .map(([title, section]) => {
-        return `<a href="#${section}">${title}</a>`;
-    })
+    .map(([title, section]) => `<a href="#${section}">${title}</a>`)
     .join("");
 
-// Mobile menu
 $("#mb").onclick = () => {
     $("#menu").classList.toggle("on");
 };
 
-// Close menu after clicking a link
 $("#menu").onclick = () => {
     $("#menu").classList.remove("on");
 };
@@ -77,9 +71,7 @@ $("#menu").onclick = () => {
 
 $("#open").onclick = () => {
     $("#intro").classList.add("off");
-
-    // Start falling petals
-    petals();
+    startPetals();
 };
 
 
@@ -105,19 +97,19 @@ photos.forEach((photo, index) => {
         "pol"
     );
 
-    // Give every photo a slightly different rotation
     const rotation =
         (index % 2 ? 1 : -1) * (1 + (index % 3));
 
-    photoCard.style.setProperty("--r", `${rotation}deg`);
+    photoCard.style.setProperty(
+        "--r",
+        `${rotation}deg`
+    );
 
-    // Open photo in lightbox
     photoCard.onclick = () => {
 
         $("#li").src = photo;
         $("#lb").classList.add("on");
 
-        // Floating hearts
         for (let i = 0; i < 8; i++) {
             createHeart(
                 innerWidth * Math.random(),
@@ -129,7 +121,7 @@ photos.forEach((photo, index) => {
     $("#gal").append(photoCard);
 });
 
-// Close lightbox
+
 $("#lb").onclick = () => {
     $("#lb").classList.remove("on");
 };
@@ -139,19 +131,19 @@ $("#lb").onclick = () => {
    6. OUR STORY TIMELINE
    ========================================================== */
 
-CFG.timeline.forEach(([year, title, description]) => {
+CFG.timeline.forEach((item) => {
 
     const timelineCard = createElement(
         "div",
         `
-            <h3>${year}</h3>
+            <h3>${item[0]}</h3>
 
             <p class="hand">
-                ${title}
+                ${item[1]}
             </p>
 
             <p>
-                ${description}
+                ${item[2]}
             </p>
         `,
         "card"
@@ -167,20 +159,18 @@ CFG.timeline.forEach(([year, title, description]) => {
 
 let currentChapter = 0;
 
-
-/**
- * Displays the current chapter.
- */
 const showChapter = () => {
 
     const photo =
         photos[currentChapter % photos.length];
 
     const title =
-        CFG.chapterTitles[currentChapter];
+        CFG.chapterTitles?.[currentChapter] ||
+        `Chapter ${currentChapter + 1}`;
 
     const note =
-        CFG.chNotes[currentChapter];
+        CFG.chNotes?.[currentChapter] ||
+        "";
 
     $("#bk").innerHTML = `
         <img
@@ -202,9 +192,6 @@ const showChapter = () => {
 };
 
 
-/**
- * Moves between chapters.
- */
 const changeChapter = (direction) => {
 
     currentChapter =
@@ -214,17 +201,14 @@ const changeChapter = (direction) => {
 };
 
 
-// Previous chapter
 $("#pv").onclick = () => {
     changeChapter(-1);
 };
 
-// Next chapter
 $("#nx").onclick = () => {
     changeChapter(1);
 };
 
-// Initial chapter
 showChapter();
 
 
@@ -247,7 +231,7 @@ addEventListener("keydown", (event) => {
 
 
 /* ==========================================================
-   9. SWIPE SUPPORT FOR MOBILE
+   9. MOBILE SWIPE
    ========================================================== */
 
 let touchStartX = 0;
@@ -277,15 +261,15 @@ $("#bk").ontouchend = (event) => {
    10. THINGS I LOVE ABOUT YOU
    ========================================================== */
 
-CFG.love.forEach(([title, message]) => {
+CFG.love.forEach((item) => {
 
     const loveCard = createElement(
         "div",
         `
-            <h3>${title}</h3>
+            <h3>${item[0]}</h3>
 
             <p class="hand" hidden>
-                ${message}
+                ${item[1]}
             </p>
 
             <p style="color: var(--soft)">
@@ -297,13 +281,19 @@ CFG.love.forEach(([title, message]) => {
 
     loveCard.onclick = () => {
 
-        const hiddenMessage =
+        const message =
             loveCard.querySelector(".hand");
 
-        hiddenMessage.hidden = false;
+        message.hidden = false;
 
-        // Remove "Tap to open" text
-        loveCard.lastChild.remove();
+        const hint =
+            loveCard.querySelector(
+                "p:last-child"
+            );
+
+        if (hint) {
+            hint.remove();
+        }
     };
 
     $("#lv").append(loveCard);
@@ -332,21 +322,21 @@ $("#jar").onclick = () => {
 
 
 /* ==========================================================
-   12. "OPEN WHEN..." LETTERS
+   12. OPEN WHEN...
    ========================================================== */
 
-CFG.openWhen.forEach(([title, message]) => {
+CFG.openWhen.forEach((item) => {
 
     const envelopeButton = createElement(
         "button",
-        `💌 ${title}`,
+        `💌 ${item[0]}`,
         "g env"
     );
 
     envelopeButton.onclick = () => {
 
         $("#mt").innerHTML = `
-            <p>${message}</p>
+            <p>${item[1]}</p>
         `;
 
         $("#md").classList.add("on");
@@ -356,7 +346,6 @@ CFG.openWhen.forEach(([title, message]) => {
 });
 
 
-// Close modal
 $("#mc").onclick = () => {
     $("#md").classList.remove("on");
 };
@@ -367,7 +356,7 @@ $("#mc").onclick = () => {
    ========================================================== */
 
 $("#badtxt").innerHTML = CFG.bad
-    .map(message => `<p>${message}</p>`)
+    .map((message) => `<p>${message}</p>`)
     .join("");
 
 
@@ -376,7 +365,7 @@ $("#badtxt").innerHTML = CFG.bad
    ========================================================== */
 
 $("#lt").innerHTML = CFG.letter
-    .map(paragraph => `<p>${paragraph}</p>`)
+    .map((paragraph) => `<p>${paragraph}</p>`)
     .join("");
 
 
@@ -384,9 +373,9 @@ $("#lt").innerHTML = CFG.letter
    15. GENERIC CARD SECTIONS
    ========================================================== */
 
-const createCards = (containerSelector, items) => {
+const createCards = (selector, items) => {
 
-    items.forEach(item => {
+    items.forEach((item) => {
 
         const card = createElement(
             "div",
@@ -394,18 +383,13 @@ const createCards = (containerSelector, items) => {
             "card hand"
         );
 
-        $(containerSelector).append(card);
+        $(selector).append(card);
     });
 };
 
 
-// Perfect little things
 createCards("#pf", CFG.perfect);
-
-// Birthday wishes
 createCards("#ws", CFG.wishes);
-
-// Promises
 createCards("#pm", CFG.promises);
 
 
@@ -413,15 +397,15 @@ createCards("#pm", CFG.promises);
    16. QUESTIONS & ANSWERS
    ========================================================== */
 
-CFG.qa.forEach(([question, answer]) => {
+CFG.qa.forEach((item) => {
 
     const questionCard = createElement(
         "div",
         `
-            <h3>${question}</h3>
+            <h3>${item[0]}</h3>
 
             <p class="hand" hidden>
-                ${answer}
+                ${item[1]}
             </p>
         `,
         "card rev"
@@ -429,9 +413,10 @@ CFG.qa.forEach(([question, answer]) => {
 
     questionCard.onclick = () => {
 
-        questionCard.querySelector(
-            ".hand"
-        ).hidden = false;
+        const answer =
+            questionCard.querySelector(".hand");
+
+        answer.hidden = false;
     };
 
     $("#qa").append(questionCard);
@@ -461,9 +446,6 @@ const audio = new Audio();
 let currentSong = 0;
 
 
-/**
- * Loads the currently selected song.
- */
 const loadSong = () => {
 
     const song = CFG.songs[currentSong];
@@ -472,12 +454,11 @@ const loadSong = () => {
     $("#sa").textContent = song.a;
     $("#sq").textContent = song.q;
 
-    audio.src = song.src;
+    audio.src = song.src || "";
 
-    $("#sh").textContent =
-        song.src
-            ? ""
-            : "Add your own legal audio file in CFG.songs[].src";
+    $("#sh").textContent = song.src
+        ? ""
+        : "Add your own legal audio file in CFG.songs[].src";
 
     $("#vn").classList.remove("spin");
 
@@ -485,18 +466,17 @@ const loadSong = () => {
 };
 
 
-/**
- * Play / pause current song.
- */
 const toggleMusic = () => {
 
-    if (!CFG.songs[currentSong].src) {
+    const song = CFG.songs[currentSong];
+
+    if (!song || !song.src) {
         return;
     }
 
     if (audio.paused) {
 
-        audio.play();
+        audio.play().catch(() => {});
 
         $("#vn").classList.add("spin");
         $("#pp").textContent = "❚❚";
@@ -511,11 +491,9 @@ const toggleMusic = () => {
 };
 
 
-// Play / pause
 $("#pp").onclick = toggleMusic;
 
 
-// Next song
 $("#sn2").onclick = () => {
 
     currentSong =
@@ -525,7 +503,6 @@ $("#sn2").onclick = () => {
 };
 
 
-// Previous song
 $("#sp").onclick = () => {
 
     currentSong =
@@ -536,7 +513,6 @@ $("#sp").onclick = () => {
 };
 
 
-// Update progress bar
 audio.ontimeupdate = () => {
 
     $("#pr").value = audio.duration
@@ -545,23 +521,23 @@ audio.ontimeupdate = () => {
 };
 
 
-// Seek
 $("#pr").oninput = (event) => {
+
+    if (!audio.duration) {
+        return;
+    }
 
     audio.currentTime =
         audio.duration *
-        event.target.value / 100;
+        Number(event.target.value) / 100;
 };
 
 
-// Volume
 $("#vo").oninput = (event) => {
-
-    audio.volume = event.target.value;
+    audio.volume = Number(event.target.value);
 };
 
 
-// Load first song
 loadSong();
 
 
@@ -576,27 +552,27 @@ $("#mgo").onclick = async () => {
     const messages = [
         "Close your eyes for a second.",
         "And just listen.",
-        ...CFG.songs.map(song => song.q)
+        ...CFG.songs.map((song) => song.q)
     ];
 
     for (const message of messages) {
 
-        $("#mm").style.opacity = 0;
+        $("#mm").style.opacity = "0";
 
-        await new Promise(resolve =>
-            setTimeout(resolve, 900)
-        );
+        await new Promise((resolve) => {
+            setTimeout(resolve, 900);
+        });
 
         $("#mm").textContent = message;
 
         $("#mm").style.transition =
             "opacity 1.2s";
 
-        $("#mm").style.opacity = 1;
+        $("#mm").style.opacity = "1";
 
-        await new Promise(resolve =>
-            setTimeout(resolve, 3000)
-        );
+        await new Promise((resolve) => {
+            setTimeout(resolve, 3000);
+        });
     }
 
     $("#mm").textContent =
@@ -624,7 +600,6 @@ const updateCountdown = () => {
     );
 
 
-    // Birthday is today
     if (
         now.toDateString() ===
         birthday.toDateString()
@@ -637,8 +612,6 @@ const updateCountdown = () => {
     }
 
 
-    // If birthday has passed,
-    // calculate next year's birthday
     if (birthday < now) {
 
         birthday = new Date(
@@ -692,13 +665,9 @@ const updateCountdown = () => {
 };
 
 
-// Start countdown
 updateCountdown();
 
-setInterval(
-    updateCountdown,
-    1000
-);
+setInterval(updateCountdown, 1000);
 
 
 /* ==========================================================
@@ -711,29 +680,26 @@ $("#last").onclick = async () => {
 
     finaleScreen.classList.add("on");
 
-
     for (const message of CFG.finale) {
 
-        $("#ft").style.opacity = 0;
+        $("#ft").style.opacity = "0";
 
-        await new Promise(resolve =>
-            setTimeout(resolve, 900)
-        );
+        await new Promise((resolve) => {
+            setTimeout(resolve, 900);
+        });
 
         $("#ft").textContent = message;
 
         $("#ft").style.transition =
             "opacity 1.2s";
 
-        $("#ft").style.opacity = 1;
+        $("#ft").style.opacity = "1";
 
-        await new Promise(resolve =>
-            setTimeout(resolve, 2600)
-        );
+        await new Promise((resolve) => {
+            setTimeout(resolve, 2600);
+        });
     }
 
-
-    // Allow clicking anywhere to close
     finaleScreen.onclick = () => {
         finaleScreen.classList.remove("on");
     };
@@ -741,7 +707,7 @@ $("#last").onclick = async () => {
 
 
 /* ==========================================================
-   22. FLOATING HEART EFFECT
+   22. FLOATING HEARTS
    ========================================================== */
 
 function createHeart(x, y) {
@@ -761,8 +727,6 @@ function createHeart(x, y) {
 
     document.body.append(heart);
 
-
-    // Remove after animation
     setTimeout(() => {
         heart.remove();
     }, 1400);
@@ -770,7 +734,7 @@ function createHeart(x, y) {
 
 
 /* ==========================================================
-   23. HEARTS FOLLOWING THE MOUSE
+   23. MOUSE HEARTS
    ========================================================== */
 
 let lastMouseHeart = 0;
@@ -809,7 +773,16 @@ addEventListener("dblclick", (event) => {
    25. FALLING PETALS
    ========================================================== */
 
-function petals() {
+let petalsStarted = false;
+
+function startPetals() {
+
+    // Prevent multiple intervals
+    if (petalsStarted) {
+        return;
+    }
+
+    petalsStarted = true;
 
     setInterval(() => {
 
@@ -830,8 +803,6 @@ function petals() {
 
         document.body.append(petal);
 
-
-        // Remove old petals
         setTimeout(() => {
             petal.remove();
         }, 16000);
@@ -875,17 +846,18 @@ const secretCode = [
 
 function checkSecretCode(key) {
 
+    if (!key || key.length !== 1) {
+        return;
+    }
+
     keyboardSequence.push(
         key.toLowerCase()
     );
 
-
-    // Keep only the last 4 characters
     keyboardSequence =
         keyboardSequence.slice(-4);
 
 
-    // Check if the secret code matches
     if (
         keyboardSequence.join("") ===
         secretCode.join("")
@@ -907,6 +879,8 @@ function checkSecretCode(key) {
         `;
 
         $("#md").classList.add("on");
+
+        // Reset secret code
+        keyboardSequence = [];
     }
 }
-```
