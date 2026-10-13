@@ -280,20 +280,22 @@ CFG.love.forEach((item) => {
         "card rev"
     );
 
+    const message =
+        loveCard.querySelector(".hand");
+
+    const hint =
+        loveCard.querySelector("p:last-child");
+
     loveCard.onclick = () => {
 
-        const message =
-            loveCard.querySelector(".hand");
+        const isOpen = !message.hidden;
 
-        message.hidden = false;
-
-        const hint =
-            loveCard.querySelector(
-                "p:last-child"
-            );
+        message.hidden = isOpen;
 
         if (hint) {
-            hint.remove();
+            hint.textContent = isOpen
+                ? "Tap to open ♡"
+                : "Tap to close ♡";
         }
     };
 
